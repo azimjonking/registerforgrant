@@ -18,36 +18,6 @@ const Register = () => {
     });
   }, []);
 
-  const handleCreateUser = (e) => {
-    e.preventDefault();
-
-    if (!validate()) {
-      return;
-    }
-
-    const user = {
-      firstName: firstNameRef.current.value,
-      lastName: lastNameRef.current.value,
-      phone,
-      age: parseInt(ageRef.current.value),
-      subject: subjectRef.current.value,
-      address: addressRef.current.value,
-    };
-
-    console.log("User created successfully:", user);
-  };
-
-  const clearInputs = (e) => {
-    e.preventDefault();
-    firstNameRef.current.value = "";
-    lastNameRef.current.value = "";
-    setPhone("");
-    ageRef.current.value = "";
-    subjectRef.current.value = "null";
-    addressRef.current.value = "";
-    setErrors({});
-  };
-
   const validate = () => {
     const newErrors = {};
 
@@ -77,6 +47,42 @@ const Register = () => {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const clearInputs = () => {
+    firstNameRef.current.value = "";
+    lastNameRef.current.value = "";
+    setPhone("");
+    ageRef.current.value = "";
+    subjectRef.current.value = "null";
+    addressRef.current.value = "";
+    setErrors({});
+  };
+
+  const handleClearClick = (e) => {
+    e.preventDefault();
+    clearInputs();
+  };
+
+  const handleCreateUser = (e) => {
+    e.preventDefault();
+
+    // if (!validate()) {
+    //   return;
+    // }
+
+    const user = {
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      phone,
+      age: parseInt(ageRef.current.value),
+      subject: subjectRef.current.value,
+      address: addressRef.current.value,
+    };
+
+    console.log("User created successfully:", user);
+
+    clearInputs();
   };
 
   return (
@@ -164,7 +170,7 @@ const Register = () => {
 
           <div className={styles.btns}>
             <button className={styles.send}>Send</button>
-            <button className={styles.clear} onClick={clearInputs}>
+            <button className={styles.clear} onClick={handleClearClick}>
               Clear
             </button>
           </div>
